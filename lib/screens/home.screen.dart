@@ -3,9 +3,16 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:yew/components/category_card.dart';
 import 'package:yew/components/note_card.dart';
+import 'package:yew/screens/add_notes.screen.dart';
 import 'package:yew/utils/utils.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
   final Map<String, int> categories = {
     'Notes': 112,
     'Reminder': 3,
@@ -17,7 +24,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          SizedBox(height: 40),
+          SizedBox(height: 20),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: Row(
@@ -27,10 +34,9 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 28,
                   fontWeight: FontWeight.bold
                 )),
-                Row(
-                  children: <Widget>[
-                    Icon(Icons.more_vert),
-                  ],
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddNotesScreen())),
                 )
               ],
             ),

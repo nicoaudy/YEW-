@@ -9,7 +9,7 @@ class App extends StatelessWidget {
       title: "YEW!",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomeScreen(),
