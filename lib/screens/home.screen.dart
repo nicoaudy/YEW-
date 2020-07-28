@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:yew/components/category_card.dart';
 import 'package:yew/components/note_card.dart';
+import 'package:yew/utils/utils.dart';
 
 class HomeScreen extends StatelessWidget {
   final Map<String, int> categories = {
@@ -22,13 +23,13 @@ class HomeScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("Good Morning", style: TextStyle(
+                Text(Utils.greetings(), style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold
                 )),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.add),
+                    Icon(Icons.more_vert),
                   ],
                 )
               ],
