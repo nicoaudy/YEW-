@@ -1,5 +1,8 @@
 # YEW!
 
+
+![Notes](./screenshots/notes.png "Example Notes")
+
 ## Modules
 - Note
 - Todo
