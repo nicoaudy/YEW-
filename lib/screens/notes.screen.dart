@@ -30,45 +30,47 @@ class _NotesScreenState extends State<NotesScreen> {
   handleSubmit() {
     print("hi im clicked");
     print(_controller.document);
+    print(_titleInput.text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: <Widget>[
-            Header(children: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () => Navigator.pop(context)
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: TextField(controller: _titleInput, decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Title Goes Here...",
-                    )),
-                  ),
-                  SizedBox(width: 10),
-                  Row(
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => {}
-                        ),
-                        IconButton(
-                            icon: Icon(Icons.save),
-                            onPressed: () => {}
-                        ),
-                      ],
-                    ),
-                ]
-            ), padding: 0),
             Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.only(top: 16),
+              child: Header(children: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () => Navigator.pop(context)
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(controller: _titleInput, decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Title Goes Here...",
+                      )),
+                    ),
+                    SizedBox(width: 10),
+                    Row(
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () => {}
+                          ),
+                          IconButton(
+                              icon: Icon(Icons.save),
+                              onPressed: () => handleSubmit()
+                          ),
+                        ],
+                      ),
+                  ]
+              ), padding: 0),
+            ),
+            Expanded(
                 child: ZefyrScaffold(
                   child: ZefyrEditor(
                     padding: EdgeInsets.all(16),
