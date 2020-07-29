@@ -9,12 +9,27 @@ class NoteList extends StatelessWidget {
   Widget build(BuildContext context) {
     final notes = Provider.of<NoteProvider>(context);
 
+    if (notes.allNotes.length == 0) {
+      return Container(
+        child: Center(
+          child: Image(
+            image: AssetImage('assets/images/empty.png'),
+          ),
+        ),
+      );
+    }
+
     return Container(
-      height: MediaQuery.of(context).size.height,
       child: ListView.builder(
         itemCount: notes.total,
         itemBuilder: (context, index) {
           var note = notes.allNotes[index];
+          if (notes.allNotes.length == 0) {
+            return Center(
+              child: Text("There's no notes found"),
+            );
+          }
+
           return NoteCard(
             title: note.title,
             content: note.content,
