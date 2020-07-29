@@ -3,5 +3,5 @@ class NoteModel {
   String title;
   String content;
 
-  NoteModel({ this.id, this.title, this.content });
+  NoteModel({this.id, this.title = "New Note", this.content = "New Note\n"});
 }

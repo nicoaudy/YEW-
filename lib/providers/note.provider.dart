@@ -13,4 +13,13 @@ class NoteProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void update(String id, String title, String content) {
+    var current = _notes.firstWhere((element) => element.id == id);
+
+    current.title = title;
+    current.content = content;
+
+    notifyListeners();
+  }
 }
