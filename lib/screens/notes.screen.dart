@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:quill_delta/quill_delta.dart';
 import 'package:yew/components/header.dart';
 import 'package:yew/models/note.model.dart';
-import 'package:yew/providers/note.provider.dart';
 import 'package:zefyr/zefyr.dart';
 
 class NotesScreen extends StatefulWidget {
@@ -19,7 +17,7 @@ class _NotesScreenState extends State<NotesScreen> {
   final NoteModel _note;
   _NotesScreenState({Key key, note}) : _note = note;
 
-  ZefyrController _controller;
+  ZefyrController _editorInput;
   TextEditingController _titleInput = new TextEditingController();
   FocusNode _focusNode;
 
@@ -27,18 +25,20 @@ class _NotesScreenState extends State<NotesScreen> {
   void initState() {
     super.initState();
     final document = _loadDocument();
-    _controller = ZefyrController(document);
+    _editorInput = ZefyrController(document);
     _focusNode = FocusNode();
+
+    _titleInput.text = _note.noteTitle;
   }
 
   NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert(_note.content);
+    final Delta delta = Delta()..insert(_note.noteContent);
     return NotusDocument.fromDelta(delta);
   }
 
   handleSubmit() {
     print("hi im clicked");
-    print(_controller.document);
+    print(_editorInput.document);
     print(_titleInput.text);
   }
 
@@ -50,42 +50,50 @@ class _NotesScreenState extends State<NotesScreen> {
           Container(
             margin: EdgeInsets.only(top: 16),
             child: Header(
-                children: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextField(
+                      controller: _titleInput,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Title Goes Here...",
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Row(
                     children: <Widget>[
                       IconButton(
-                          icon: Icon(Icons.arrow_back),
-                          onPressed: () => Navigator.pop(context)),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: TextField(
-                            controller: _titleInput,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Title Goes Here...",
-                            )),
+                        icon: Icon(Icons.delete),
+                        onPressed: () => {},
                       ),
-                      SizedBox(width: 10),
-                      Row(
-                        children: <Widget>[
-                          IconButton(
-                              icon: Icon(Icons.delete), onPressed: () => {}),
-                          IconButton(
-                              icon: Icon(Icons.save),
-                              onPressed: () => handleSubmit()),
-                        ],
+                      IconButton(
+                        icon: Icon(Icons.save),
+                        onPressed: () => handleSubmit(),
                       ),
-                    ]),
-                padding: 0),
+                    ],
+                  ),
+                ],
+              ),
+              padding: 0,
+            ),
           ),
           Expanded(
-              child: ZefyrScaffold(
-            child: ZefyrEditor(
-              padding: EdgeInsets.all(16),
-              controller: _controller,
-              focusNode: _focusNode,
+            child: ZefyrScaffold(
+              child: ZefyrEditor(
+                padding: EdgeInsets.all(16),
+                controller: _editorInput,
+                focusNode: _focusNode,
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );

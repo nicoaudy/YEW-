@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:yew/components/category_card.dart';
 import 'package:yew/components/header.dart';
-import 'package:yew/components/note_card.dart';
+import 'package:yew/components/note_list.dart';
 import 'package:yew/models/note.model.dart';
 import 'package:yew/providers/note.provider.dart';
 import 'package:yew/screens/notes.screen.dart';
@@ -68,20 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 return CategoryCard(
-                    index: index - 1,
-                    title: categories.keys.toList()[index - 1],
-                    count: categories.values.toList()[index - 1]);
+                  index: index - 1,
+                  title: categories.keys.toList()[index - 1],
+                  count: categories.values.toList()[index - 1],
+                );
               },
             ),
           ),
-          NoteCard(
-              title: "Walk with dog",
-              content: "Walk on the streeet with my favorite dog",
-              date: "20-08-2020"),
-          NoteCard(
-              title: "Walk with dog",
-              content: "Walk on the streeet with my favorite dog",
-              date: "20-08-2020"),
+          NoteList()
         ],
       ),
     );
