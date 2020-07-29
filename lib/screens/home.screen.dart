@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:yew/providers/note.provider.dart';
+import 'package:yew/screens/notes.screen.dart';
 
 import 'package:yew/utils/utils.dart';
 import 'package:yew/components/header.dart';
@@ -11,14 +14,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final Map<String, int> categories = {
-    'Notes': 112,
-    'Reminder': 3,
-    'Expenses': 0,
-  };
-
   @override
   Widget build(BuildContext context) {
+    final Map<String, int> categories = {
+      'Notes': Provider.of<NoteProvider>(context).allNotes.length,
+      'Reminder': 3,
+      'Expenses': 0,
+    };
+
     return Scaffold(
       body: SafeArea(
         child: Column(
