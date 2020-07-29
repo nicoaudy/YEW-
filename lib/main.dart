@@ -5,13 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:yew/providers/note.provider.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        Provider<NoteProvider>(create: (_) => NoteProvider()),
-      ],
-      child: App()
-    )
-  );
+  runApp(MultiProvider(providers: [
+    Provider<NoteProvider>(create: (_) => NoteProvider()),
+  ], child: App()));
 }
-
