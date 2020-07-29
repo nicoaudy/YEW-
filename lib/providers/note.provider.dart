@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:yew/models/note.model.dart';
 
-class NoteProvider extends ChangeNotifier {
+class NoteProvider with ChangeNotifier {
   final List<NoteModel> _notes = [];
 
   get total => _notes.length;
