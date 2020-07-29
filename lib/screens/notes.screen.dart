@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:quill_delta/quill_delta.dart';
+import 'package:uuid/uuid.dart';
 import 'package:yew/components/header.dart';
 import 'package:yew/models/note.model.dart';
+import 'package:yew/providers/note.provider.dart';
 import 'package:zefyr/zefyr.dart';
 
 class NotesScreen extends StatefulWidget {
-  final NoteModel _note;
-  NotesScreen({Key key, note}) : _note = note;
-
   @override
-  _NotesScreenState createState() => _NotesScreenState(note: _note);
+  _NotesScreenState createState() => _NotesScreenState();
 }
 
 class _NotesScreenState extends State<NotesScreen> {
-  final NoteModel _note;
-  _NotesScreenState({Key key, note}) : _note = note;
-
   ZefyrController _editorInput;
-  TextEditingController _titleInput = new TextEditingController();
   FocusNode _focusNode;
+  TextEditingController _titleInput = new TextEditingController();
 
   @override
   void initState() {
@@ -27,23 +24,31 @@ class _NotesScreenState extends State<NotesScreen> {
     final document = _loadDocument();
     _editorInput = ZefyrController(document);
     _focusNode = FocusNode();
-
-    _titleInput.text = _note.noteTitle;
   }
 
   NotusDocument _loadDocument() {
-    final Delta delta = Delta()..insert(_note.noteContent);
+    final Delta delta = Delta()..insert("Start writing\n");
     return NotusDocument.fromDelta(delta);
-  }
-
-  handleSubmit() {
-    print("hi im clicked");
-    print(_editorInput.document);
-    print(_titleInput.text);
   }
 
   @override
   Widget build(BuildContext context) {
+    var noteStore = Provider.of<NoteProvider>(context);
+    var uuid = Uuid();
+
+    handleSubmit() {
+      final payload = NoteModel(
+        id: uuid,
+        title:
+            _titleInput.text == '' ? NoteModel.DEFAULT_TITLE : _titleInput.text,
+        content: _editorInput.document.toString(),
+      );
+
+      noteStore.addNote(payload);
+
+      Navigator.pop(context);
+    }
+
     return Scaffold(
       body: Column(
         children: <Widget>[

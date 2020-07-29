@@ -1,15 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
-import 'package:yew/components/category_card.dart';
+
+import 'package:yew/utils/utils.dart';
 import 'package:yew/components/header.dart';
 import 'package:yew/components/note_list.dart';
-import 'package:yew/models/note.model.dart';
-import 'package:yew/providers/note.provider.dart';
-import 'package:yew/screens/notes.screen.dart';
-import 'package:yew/utils/utils.dart';
+import 'package:yew/components/category_card.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -39,20 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   IconButton(
                     icon: Icon(Icons.add),
-                    onPressed: () {
-                      var uuid = Uuid();
-                      NoteModel note = NoteModel(id: uuid.v4());
-
-                      Provider.of<NoteProvider>(context, listen: false)
-                          .addNote(note);
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NotesScreen(note: note),
-                        ),
-                      );
-                    },
+                    onPressed: () => Navigator.pushNamed(context, '/notes'),
                   )
                 ],
               ),
