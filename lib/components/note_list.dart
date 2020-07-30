@@ -32,7 +32,7 @@ class NoteList extends StatelessWidget {
 
           return NoteCard(
             title: note.title,
-            content: note.content,
+            content: note.content.toPlainText(),
             date: "20-08-2020",
           );
         },

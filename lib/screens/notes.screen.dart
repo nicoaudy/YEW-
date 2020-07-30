@@ -41,7 +41,7 @@ class _NotesScreenState extends State<NotesScreen> {
         id: uuid,
         title:
             _titleInput.text == '' ? NoteModel.DEFAULT_TITLE : _titleInput.text,
-        content: _editorInput.document.toString(),
+        content: _editorInput.document,
       );
 
       noteStore.addNote(payload);

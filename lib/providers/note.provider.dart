@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:yew/models/note.model.dart';
+import 'package:zefyr/zefyr.dart';
 
 class NoteProvider with ChangeNotifier {
   final List<NoteModel> _notes = [];
@@ -15,7 +16,7 @@ class NoteProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void update(String id, String title, String content) {
+  void update(String id, String title, NotusDocument content) {
     var current = _notes.firstWhere((element) => element.id == id);
 
     current.title = title;
